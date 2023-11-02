@@ -1,3 +1,4 @@
+#Ben: From sample code, some modification might be needed
 import urllib
 import numpy as np
 import mysql.connector

@@ -43,8 +43,22 @@ UNLOCK TABLES;
 
 
 # Create TABLE 'Course'
+-- Ben: to do: create table sql
+-- Ben: to do: insert data sql
+
 # Create TABLE 'Classroom'
-# Create other TABLE...
+-- Ben: to do: create table sql
+-- Ben: to do: insert data sql
+
+# Create TABLE 'xxx'
+-- Ben: to do: create table sql
+-- Ben: to do: insert data sql
+
+# Create TABLE 'xxx'
+-- Ben: to do: create table sql
+-- Ben: to do: insert data sql
+
+
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

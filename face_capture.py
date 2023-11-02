@@ -1,3 +1,4 @@
+# Ben: From sample code, no modification is needed
 import cv2
 import os
 
