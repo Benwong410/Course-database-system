@@ -1,16 +1,8 @@
 #Ben: From sample code, not too sure what it do tho
-import urllib
-import numpy as np
-import mysql.connector
-import cv2
-import pyttsx3
-import pickle
-from datetime import datetime
-import sys
-import PySimpleGUI as sg
+from config import *
 
 # 1 Create database connection
-myconn = mysql.connector.connect(host="localhost", user="root", passwd="123456", database="facerecognition")
+myconn = mysql.connector.connect(host="localhost", user="root", passwd=CONFIG_PASSWORD, database="facerecognition")
 date = datetime.utcnow()
 now = datetime.now()
 current_time = now.strftime("%H:%M:%S")
