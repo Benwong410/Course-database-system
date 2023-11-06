@@ -58,6 +58,7 @@ python train.py
 ### 2. Database Design
 
 #### 2.1 Define Database
+```
 Our database now: 
 Users(user_id, user_name, user_email, user_login_time, user_login_date)
 Teachers(user_id, student_id_string)
@@ -65,7 +66,7 @@ Students(user_id, teacher_office)
 Courses(course_id, course_code, course_name, teacher_user_id, welcome_message)
 Coursetimeslots(course_id, start_time, end_time, day_in_week, course_venue)
 Registercourse(user_id, course_id)
-
+```
 #### 2.2 Import Database
 Open mysql server and import the file `facerecognition.sql`.
 ```
