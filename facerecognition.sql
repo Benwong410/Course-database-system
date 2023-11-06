@@ -18,7 +18,10 @@ SET time_zone = "+08:00";
 
 --
 -- Database: `facerecognition`
---
+-- Command: mysql -u root -p
+-- Command: use facerecognition
+-- Command: source facerecognition.sql
+-- Table: Users, Students, Teachers, Courses, Coursetimeslots, Registercourses
 
 -- --------------------------------------------------------
 
@@ -94,13 +97,16 @@ DROP TABLE IF EXISTS `Courses`;
 CREATE TABLE `Courses` (
   `course_id` int AUTO_INCREMENT PRIMARY KEY,
   `course_code` varchar(50) NOT NULL,
-  `course_name` varchar(200) NOT NULL
+  `course_name` varchar(200) NOT NULL,
+  `teacher_user_id` int not NULL,
+  `welcome_message` varchar(200) NOT NULL,
+  FOREIGN KEY (`teacher_user_id`) REFERENCES Teachers(`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
--- 'teacher', 'welcome_msg'
+
 LOCK TABLES `Courses` WRITE;
 /*!40000 ALTER TABLE `Student` DISABLE KEYS */;
-INSERT INTO `Courses` VALUES (1, "COMP2120", "Computer Organization");
-INSERT INTO `Courses` VALUES (2, "COMP3278", "Introduction to database management systems");
+INSERT INTO `Courses` VALUES (1, "COMP2120", "Computer Organization", 3, "Computer Organization is fun as long as you attend lecture. Welcome back.");
+INSERT INTO `Courses` VALUES (2, "COMP3278", "Introduction to database management systems", 4, "Hi everyone! Welcome to COMP3278! Let expolore database together.");
 /*!40000 ALTER TABLE `Student` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -114,7 +120,7 @@ CREATE TABLE `Coursetimeslots` (
   `course_id` int,
   `start_time` varchar(100) NOT NULL,
   `end_time` varchar(100) NOT NULL,
-  `day_in_week` varchar(50) NOT NULL
+  `day_in_week` varchar(50) NOT NULL,
   `course_venue` varchar(50) NOT NULL,
   FOREIGN KEY (`course_id`) REFERENCES Courses(`course_id`)
 
@@ -125,13 +131,29 @@ LOCK TABLES `Coursetimeslots` WRITE;
 INSERT INTO `Coursetimeslots` VALUES (1, "11:00", "12:00", "2", "CYM112");
 INSERT INTO `Coursetimeslots` VALUES (1, "11:00", "13:00", "4", "CYM112");
 INSERT INTO `Coursetimeslots` VALUES (2, "14:00", "16:00", "1", "CYM212");
-INSERT INTO `Coursetimeslots` VALUES (2, "145:00", "1:00", "5", "CYM212");
+INSERT INTO `Coursetimeslots` VALUES (2, "14:00", "15:00", "5", "CYM212");
 /*!40000 ALTER TABLE `Student` ENABLE KEYS */;
 UNLOCK TABLES;
 
-# Create TABLE 'Takes_course'
--- Ben: to do: create table sql
--- Ben: to do: insert data sql
+------------------------------------------------------------------------------------------------------
+-- Table structure for table `Coursetimeslots` 
+--
+DROP TABLE IF EXISTS `Registercourses`;
+
+# Create TABLE 'Registercourses'
+CREATE TABLE `Registercourses` (
+  `user_id` int,
+  `course_id` int,
+  FOREIGN KEY (`course_id`) REFERENCES Courses(`course_id`),
+  FOREIGN KEY (`user_id`) REFERENCES Students(`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `Registercourses` WRITE;
+/*!40000 ALTER TABLE `Student` DISABLE KEYS */;
+INSERT INTO `Registercourses` VALUES (1,1);
+INSERT INTO `Registercourses` VALUES (1,2);
+/*!40000 ALTER TABLE `Student` ENABLE KEYS */;
+UNLOCK TABLES;
 
 # Create TABLE 'CourseMaterials'
 -- Ben: to do: create table sql

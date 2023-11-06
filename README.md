@@ -58,23 +58,13 @@ python train.py
 ### 2. Database Design
 
 #### 2.1 Define Database
-**You need to** create tables in `facerecognition.sql`.      
-Here is a sample code for `Student`.
-```
-# Create TABLE 'Student'
-CREATE TABLE `Student` (
-  `student_id` int NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `login_time` time NOT NULL,
-  `login_date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-LOCK TABLES `Student` WRITE;
-/*!40000 ALTER TABLE `Student` DISABLE KEYS */;
-INSERT INTO `Student` VALUES (1, "JACK", NOW(), '2021-01-20');
-/*!40000 ALTER TABLE `Student` ENABLE KEYS */;
-UNLOCK TABLES;
-```
+Our database now: 
+Users(user_id, user_name, user_email, user_login_time, user_login_date)
+Teachers(user_id, student_id_string)
+Students(user_id, teacher_office)
+Courses(course_id, course_code, course_name, teacher_user_id, welcome_message)
+Coursetimeslots(course_id, start_time, end_time, day_in_week, course_venue)
+Registercourse(user_id, course_id)
 
 #### 2.2 Import Database
 Open mysql server and import the file `facerecognition.sql`.
