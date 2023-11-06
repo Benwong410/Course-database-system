@@ -96,7 +96,7 @@ CREATE TABLE `Courses` (
   `course_code` varchar(50) NOT NULL,
   `course_name` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
+-- 'teacher', 'welcome_msg'
 LOCK TABLES `Courses` WRITE;
 /*!40000 ALTER TABLE `Student` DISABLE KEYS */;
 INSERT INTO `Courses` VALUES (1, "COMP2120", "Computer Organization");
@@ -104,8 +104,32 @@ INSERT INTO `Courses` VALUES (2, "COMP3278", "Introduction to database managemen
 /*!40000 ALTER TABLE `Student` ENABLE KEYS */;
 UNLOCK TABLES;
 
+------------------------------------------------------------------------------------------------------
+-- Table structure for table `Coursetimeslots` 
+--
+DROP TABLE IF EXISTS `Coursetimeslots`;
 
 # Create TABLE 'Coursetimeslots'
+CREATE TABLE `Coursetimeslots` (
+  `course_id` int,
+  `start_time` varchar(100) NOT NULL,
+  `end_time` varchar(100) NOT NULL,
+  `day_in_week` varchar(50) NOT NULL
+  `course_venue` varchar(50) NOT NULL,
+  FOREIGN KEY (`course_id`) REFERENCES Courses(`course_id`)
+
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `Coursetimeslots` WRITE;
+/*!40000 ALTER TABLE `Student` DISABLE KEYS */;
+INSERT INTO `Coursetimeslots` VALUES (1, "11:00", "12:00", "2", "CYM112");
+INSERT INTO `Coursetimeslots` VALUES (1, "11:00", "13:00", "4", "CYM112");
+INSERT INTO `Coursetimeslots` VALUES (2, "14:00", "16:00", "1", "CYM212");
+INSERT INTO `Coursetimeslots` VALUES (2, "145:00", "1:00", "5", "CYM212");
+/*!40000 ALTER TABLE `Student` ENABLE KEYS */;
+UNLOCK TABLES;
+
+# Create TABLE 'Takes_course'
 -- Ben: to do: create table sql
 -- Ben: to do: insert data sql
 
@@ -113,11 +137,9 @@ UNLOCK TABLES;
 -- Ben: to do: create table sql
 -- Ben: to do: insert data sql
 
-# Create TABLE 'Takes_course'
--- Ben: to do: create table sql
--- Ben: to do: insert data sql
 
 -- # Ben: Create TABLE 'Teahes' optional
+
 -- # Ben: Create TABLE 'Discussion' optional
 
 
