@@ -16,9 +16,9 @@ import database_model as db
 
 class Ui_MainWindow(object):
     def openWindow(self):
-        user_id = "1"
-        time = "11:00"
-        weekday = "1"
+        user_id = "1" ## Todo: function needed to get current user_id
+        time = "11:00" ## Todo: function needed to get the current time(import time??)
+        weekday = "1"  ## Todo: function needed to get weekday now
         conn = db.connect_db()
         openCourse = bool(db.get_is_course_start_in_an_hour(conn, user_id, time, weekday))
         if (openCourse):

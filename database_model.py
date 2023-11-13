@@ -20,7 +20,7 @@ def connect_db():
     ## Return: is there any course that will be started in an hours
     ## Return Type: Boolean
 def get_is_course_start_in_an_hour(conn, user_id, time, weekday):
-        #### Dummy Template
+        #### Dummy Template (time should be range not equal)
         mycursor = conn.cursor()
         sql = """select count(*) as is_class from Registercourses rc 
         join Coursetimeslots cs on rc.course_id = cs.course_id 
