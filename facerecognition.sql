@@ -99,14 +99,16 @@ CREATE TABLE `Courses` (
   `course_code` varchar(50) NOT NULL,
   `course_name` varchar(200) NOT NULL,
   `teacher_user_id` int not NULL,
-  `welcome_message` varchar(200) NOT NULL,
+  `teacher_message` varchar(200) NOT NULL,
+  `zoom_link` varchar(200) NOT NULL,
+  `lecture_note` varchar(200) NOT NULL,
   FOREIGN KEY (`teacher_user_id`) REFERENCES Teachers(`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `Courses` WRITE;
 /*!40000 ALTER TABLE `Student` DISABLE KEYS */;
-INSERT INTO `Courses` VALUES (1, "COMP2120", "Computer Organization", 3, "Computer Organization is fun as long as you attend lecture. Welcome back.");
-INSERT INTO `Courses` VALUES (2, "COMP3278", "Introduction to database management systems", 4, "Hi everyone! Welcome to COMP3278! Let expolore database together.");
+INSERT INTO `Courses` VALUES (1, "COMP2120", "Computer Organization", 3, "Computer Organization is fun as long as you attend lecture. Welcome back.", "www.zoom.com/2120", "2120note.pdf");
+INSERT INTO `Courses` VALUES (2, "COMP3278", "Introduction to database management systems", 4, "Hi everyone! Welcome to COMP3278! Let expolore database together.", "www.zoom.com/3278", "3278note.pdf");
 /*!40000 ALTER TABLE `Student` ENABLE KEYS */;
 UNLOCK TABLES;
 
