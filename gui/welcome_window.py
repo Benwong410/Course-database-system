@@ -9,9 +9,27 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from course__window import Ui_CourseWindow
+from timeteable__window import Ui_TimeWindow
+import database_model
 
 
 class Ui_MainWindow(object):
+    def openWindow(self):
+        x = True
+        if (x):
+            self.window = QtWidgets.QMainWindow()
+            self.ui = Ui_CourseWindow()
+            self.ui.setupUi(self.window)
+            self.window.show()
+        else:
+            self.window = QtWidgets.QMainWindow()
+            self.ui = Ui_TimeWindow()
+            self.ui.setupUi(self.window)
+            self.window.show()
+
+            
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(823, 424)
@@ -48,7 +66,7 @@ class Ui_MainWindow(object):
         self.label_6.setGeometry(QtCore.QRect(420, 300, 101, 31))
         self.label_6.setStyleSheet("font: 18pt \".AppleSystemUIFont\";")
         self.label_6.setObjectName("label_6")
-        self.pushButton = QtWidgets.QPushButton(self.widget)
+        self.pushButton = QtWidgets.QPushButton(self.widget , clicked = lambda:self.openWindow())
         self.pushButton.setGeometry(QtCore.QRect(340, 350, 113, 32))
         self.pushButton.setStyleSheet("border-radius:20px;\n"
 "background-color: rgb(201, 201, 201);\n"

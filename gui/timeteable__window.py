@@ -11,11 +11,11 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_CourseWindow(object):
-    def setupUi(self, CourseWindow):
-        CourseWindow.setObjectName("CourseWindow")
-        CourseWindow.resize(844, 827)
-        self.centralwidget = QtWidgets.QWidget(CourseWindow)
+class Ui_TimeWindow(object):
+    def setupUi(self, TimeWindow):
+        TimeWindow.setObjectName("TimeWindow")
+        TimeWindow.resize(844, 827)
+        self.centralwidget = QtWidgets.QWidget(TimeWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.scrollArea = QtWidgets.QScrollArea(self.centralwidget)
         self.scrollArea.setGeometry(QtCore.QRect(0, 0, 841, 791))
@@ -42,22 +42,22 @@ class Ui_CourseWindow(object):
         self.calendarWidget.setGeometry(QtCore.QRect(0, 220, 841, 541))
         self.calendarWidget.setObjectName("calendarWidget")
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
-        CourseWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(CourseWindow)
+        TimeWindow.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(TimeWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 844, 24))
         self.menubar.setObjectName("menubar")
-        CourseWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(CourseWindow)
+        TimeWindow.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(TimeWindow)
         self.statusbar.setObjectName("statusbar")
-        CourseWindow.setStatusBar(self.statusbar)
+        TimeWindow.setStatusBar(self.statusbar)
 
-        self.retranslateUi(CourseWindow)
-        QtCore.QMetaObject.connectSlotsByName(CourseWindow)
+        self.retranslateUi(TimeWindow)
+        QtCore.QMetaObject.connectSlotsByName(TimeWindow)
 
-    def retranslateUi(self, CourseWindow):
+    def retranslateUi(self, TimeWindow):
         _translate = QtCore.QCoreApplication.translate
-        CourseWindow.setWindowTitle(_translate("CourseWindow", "MainWindow"))
-        self.lineEdit.setText(_translate("CourseWindow", "My Timetable"))
+        TimeWindow.setWindowTitle(_translate("TimeWindow", "MainWindow"))
+        self.lineEdit.setText(_translate("TimeWindow", "My Timetable"))
 
 
 if __name__ == "__main__":
