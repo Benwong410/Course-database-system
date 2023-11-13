@@ -11,7 +11,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from course__window import Ui_CourseWindow
 from timeteable__window import Ui_TimeWindow
-import database_model
 
 
 class Ui_MainWindow(object):
@@ -55,7 +54,7 @@ class Ui_MainWindow(object):
         self.label_4 = QtWidgets.QLabel(self.widget)
         self.label_4.setGeometry(QtCore.QRect(170, 20, 461, 141))
         self.label_4.setText("")
-        self.label_4.setPixmap(QtGui.QPixmap("../../../Desktop/Screenshot 2023-11-09 at 23.34.29.png"))
+        self.label_4.setPixmap(QtGui.QPixmap("../assets/woodle_logo.png"))
         self.label_4.setScaledContents(True)
         self.label_4.setObjectName("label_4")
         self.label_5 = QtWidgets.QLabel(self.widget)

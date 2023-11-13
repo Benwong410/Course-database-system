@@ -31,7 +31,7 @@ class Ui_CourseWindow(object):
         self.label_4 = QtWidgets.QLabel(self.widget)
         self.label_4.setGeometry(QtCore.QRect(0, 20, 461, 141))
         self.label_4.setText("")
-        self.label_4.setPixmap(QtGui.QPixmap("../../../Desktop/Screenshot 2023-11-09 at 23.34.29.png"))
+        self.label_4.setPixmap(QtGui.QPixmap("../assets/woodle_logo.png"))
         self.label_4.setScaledContents(True)
         self.label_4.setObjectName("label_4")
         self.lineEdit = QtWidgets.QLineEdit(self.widget)
