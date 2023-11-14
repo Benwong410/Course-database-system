@@ -20,41 +20,70 @@ def connect_db():
     ## Return: is there any course that will be started in an hours
     ## Return Type: Boolean
 def get_is_course_start_in_an_hour(conn, user_id, time, weekday):
-        #### Dummy Template (time should be range not equal)
-        mycursor = conn.cursor()
-        sql = """select count(*) as is_class from Registercourses rc 
-        join Coursetimeslots cs on rc.course_id = cs.course_id 
-        where rc.user_id = '""" + user_id +"""' 
-        and  cs.start_time = '""" + time +"""' 
-        and cs.day_in_week = '""" + weekday +"""' 
-        """
-        mycursor.execute(sql)
-        result = mycursor.fetchall()
-        for row in result:
-            return row[0]
+    #### Dummy Template (time should be range not equal)
+    mycursor = conn.cursor()
+    sql = """
+    SELECT COUNT(*) AS is_class 
+    FROM Registercourses rc
+    JOIN Coursetimeslots cs ON rc.course_id = cs.course_id 
+    WHERE rc.user_id = %s 
+    AND cs.start_time >= %s 
+    AND cs.start_time <= ADDTIME(%s, '01:00:00')
+    AND cs.day_in_week = %s
+    """
+    mycursor.execute(sql, (user_id, time, time, weekday))
+    result = mycursor.fetchall()
+    return result[0][0]
 
     ## Usage: for the redirection of the mainpage button 
     ## Return: is there any course that will be started in an hours
     ## Return Type: Array
-def get_user_data():
-    pass
+def get_user_data(conn, user_id):
+    mycursor = conn.cursor()
+    sql = """
+    SELECT * FROM Users WHERE user_id = %s
+    """
+    mycursor.execute(sql, (user_id,))
+    return mycursor.fetchall()
 
     ## Usage: get course data in course table
     ## Return: ....
     ## Return Type: Array
-def get_course_data():
-    pass
+
+def get_course_data(conn, course_id):
+    mycursor = conn.cursor()
+    sql = """
+    SELECT * FROM Courses WHERE course_id = %s
+    """
+    mycursor.execute(sql, (course_id,))
+    return mycursor.fetchall()
 
     ## Usage: get course time table of an user
     ## Return: ....
     ## Return Type: Array
-def get_course_timetable():
-    pass
+def get_course_timetable(conn, user_id):
+    mycursor = conn.cursor()
+    sql = """
+    SELECT cs.*
+    FROM Registercourses rc
+    JOIN Coursetimeslots cs ON rc.course_id = cs.course_id 
+    WHERE rc.user_id = %s;
+    """
+    mycursor.execute(sql, (user_id,))
+    return mycursor.fetchall()
 
     ############################ Update Data from DB #############################
     ##Usage: Update the login time of user after login
-def update_login_time():
-    pass
+def update_login_time(conn, user_id, login_time, login_date):
+    mycursor = conn.cursor()
+    sql = """
+        UPDATE Users
+        SET user_login_time = %s, user_login_date = %s
+        WHERE user_id = %s
+    """
+    mycursor.execute(sql, (login_time, login_date, user_id))
+    conn.commit()
+    mycursor.close()
 
 
 # Testing
