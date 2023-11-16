@@ -16,10 +16,10 @@ import database_model as db
 
 class Ui_MainWindow(object):
     def openWindow(self):
-        user_id = "1" ## Todo: function needed to get current user_id
         time = "11:00" ## Todo: function needed to get the current time(import time??)
         weekday = "2"  ## Todo: function needed to get weekday now
         conn = db.connect_db()
+        user_id, _, _ = db.get_name_time(conn)
         openCourse = bool(db.get_is_course_start_in_an_hour(conn, user_id, time, weekday))
         if (openCourse):
             self.window = QtWidgets.QMainWindow()
@@ -89,14 +89,24 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
+        conn = db.connect_db()
+        user_id, name, time = db.get_name_time(conn)
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "Welcome to our Intelligent Course Management System"))
         self.label_2.setText(_translate("MainWindow", "Name:"))
         self.label_3.setText(_translate("MainWindow", "Login time:"))
-        self.label_5.setText(_translate("MainWindow", "Yi Tjun Yam"))
-        self.label_6.setText(_translate("MainWindow", "22:43 PM"))
-        self.pushButton.setText(_translate("MainWindow", "My courses/My timetable"))
+        self.label_5.setText(_translate("MainWindow", name))
+        self.label_6.setText(_translate("MainWindow", str(time)))
+
+        time = "11:00" ## Todo: function needed to get the current time(import time??)
+        weekday = "2"  ## Todo: function needed to get weekday now
+        openCourse = bool(db.get_is_course_start_in_an_hour(conn, user_id, time, weekday))
+
+        if (openCourse):
+            self.pushButton.setText(_translate("MainWindow", "My Courses"))
+        else:
+            self.pushButton.setText(_translate("MainWindow", "My Timetable"))
 
 
 if __name__ == "__main__":

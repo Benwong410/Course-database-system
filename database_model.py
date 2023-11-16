@@ -64,7 +64,7 @@ def get_name_time(conn):
     """
     mycursor.execute(sql)
     result = mycursor.fetchall()
-    return result[0][1], result[0][3]
+    return result[0][0],result[0][1], result[0][3]
 
     ## Usage: get course data in course table
     ## Return: ....
