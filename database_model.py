@@ -33,7 +33,26 @@ def get_is_course_start_in_an_hour(conn, user_id, time, weekday):
     """
     mycursor.execute(sql, (user_id, time, time, weekday))
     result = mycursor.fetchall()
-    return result[0][0]
+    return bool(result[0][0])
+
+    ## Usage: get course data in course table
+    ## Return: course_name, course_code, course_venue
+    ## Return Type: Array
+def get_coure_in_an_hour(conn, user_id, time, weekday):
+    mycursor = conn.cursor()
+    sql = """
+    SELECT c.course_name, c.course_code, cs.course_venue, c.teacher_message, c.zoom_link, c.lecture_note
+    FROM Registercourses rc, Courses c, Coursetimeslots cs
+    WHERE rc.user_id = %s
+    AND rc.course_id = c.course_id
+    AND rc.course_id = cs.course_id
+    AND cs.start_time >= %s
+    AND cs.start_time <= ADDTIME(%s, '01:00:00')
+    AND cs.day_in_week = %s 
+    """
+    mycursor.execute(sql, (user_id, time, time, weekday))
+    result = mycursor.fetchall()
+    return result
 
     ## Usage: for the redirection of the mainpage button 
     ## Return: is there any course that will be started in an hours
@@ -49,7 +68,6 @@ def get_user_data(conn, user_id):
     ## Usage: get course data in course table
     ## Return: ....
     ## Return Type: Array
-
 def get_course_data(conn, course_id):
     mycursor = conn.cursor()
     sql = """
