@@ -1,5 +1,7 @@
 #Ben: From sample code, not too sure what it do tho
 from config import *
+from subprocess import Popen
+import sys
 
 # 1 Create database connection
 myconn = mysql.connector.connect(host="localhost", user="root", passwd=CONFIG_PASSWORD, database="facerecognition")
@@ -109,6 +111,9 @@ while True:
                 hello = ("Hello ", current_name, "You did attendance today")
                 print(hello)
                 engine.say(hello)
+
+                Popen(["python", "welcome_window.py"])
+                sys.exit(0)
 
 
         # If the face is unrecognized
