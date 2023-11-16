@@ -57,13 +57,14 @@ def get_coure_in_an_hour(conn, user_id, time, weekday):
     ## Usage: for the redirection of the mainpage button 
     ## Return: is there any course that will be started in an hours
     ## Return Type: Array
-def get_user_data(conn, user_id):
+def get_name_time(conn):
     mycursor = conn.cursor()
     sql = """
-    SELECT * FROM Users WHERE user_id = %s
+    SELECT * FROM Users ORDER BY user_login_date desc, user_login_time DESC
     """
-    mycursor.execute(sql, (user_id,))
-    return mycursor.fetchall()
+    mycursor.execute(sql)
+    result = mycursor.fetchall()
+    return result[0][1], result[0][3]
 
     ## Usage: get course data in course table
     ## Return: ....
