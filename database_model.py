@@ -36,7 +36,7 @@ def get_is_course_start_in_an_hour(conn, user_id, time, weekday):
     return bool(result[0][0])
 
     ## Usage: get course data in course table
-    ## Return: course_name, course_code, course_venue
+    ## Return: course_name, course_code, course_venue, teacher_message, zoom_link, lecture_note
     ## Return Type: Array
 def get_coure_in_an_hour(conn, user_id, time, weekday):
     mycursor = conn.cursor()
