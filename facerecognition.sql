@@ -42,10 +42,10 @@ CREATE TABLE `Users` (
 
 LOCK TABLES `Users` WRITE;
 /*!40000 ALTER TABLE `Student` DISABLE KEYS */;
-INSERT INTO `Users` VALUES (1, "JACK", "jack@gmail.com", NOW(), '2021-01-20');
-INSERT INTO `Users` VALUES (2, "TOM", "tom@gmail.com", NOW(), '2021-01-20');
-INSERT INTO `Users` VALUES (3, "Prof. Smith", "p.smith@gmail.com", NOW(), '2021-01-20');
-INSERT INTO `Users` VALUES (4, "Prof. Wong", "p.wong@gmail.com", NOW(), '2021-01-20');
+INSERT INTO `Users` VALUES (1, "JACK", "jack@gmail.com", NOW(), '15-11-2023');
+INSERT INTO `Users` VALUES (2, "TOM", "tom@gmail.com", NOW(), '15-11-2023');
+INSERT INTO `Users` VALUES (3, "Prof. Smith", "p.smith@gmail.com", NOW(), '15-11-2023');
+INSERT INTO `Users` VALUES (4, "Prof. Wong", "p.wong@gmail.com", NOW(), '15-11-2023');
 /*!40000 ALTER TABLE `Student` ENABLE KEYS */;
 UNLOCK TABLES;
 
