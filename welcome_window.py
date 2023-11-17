@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from course__window import Ui_CourseWindow
+from course_window import Ui_CourseWindow
 from timeteable__window import Ui_TimeWindow
 import database_model as db
 
