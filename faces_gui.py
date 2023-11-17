@@ -29,7 +29,6 @@ engine.setProperty("rate", 175)
 face_cascade = cv2.CascadeClassifier('haarcascade/haarcascade_frontalface_default.xml')
 cap = cv2.VideoCapture(0)
 
-
 # 3 Define pysimplegui setting
 layout =  [
     [sg.Text('Setting', size=(18,1), font=('Any',18),text_color='#1c86ee' ,justification='left')],
@@ -75,7 +74,7 @@ while True:
             cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), (2))
 
             # Find the student information in the database.
-            select = "SELECT student_id, name, DAY(login_date), MONTH(login_date), YEAR(login_date) FROM Student WHERE name='%s'" % (name)
+            select = "SELECT user_id, user_name, YEAR(user_login_date), MONTH(user_login_date), DAY(user_login_date) FROM users WHERE user_name='%s'" % (name)
             name = cursor.execute(select)
             result = cursor.fetchall()
             # print(result)
@@ -100,10 +99,10 @@ while True:
                         timetable for the student.
 
                 """
-                update =  "UPDATE Student SET login_date=%s WHERE name=%s"
+                update =  "UPDATE users SET user_login_date=%s WHERE user_name=%s"
                 val = (date, current_name)
                 cursor.execute(update, val)
-                update = "UPDATE Student SET login_time=%s WHERE name=%s"
+                update = "UPDATE users SET user_login_time=%s WHERE user_name=%s"
                 val = (current_time, current_name)
                 cursor.execute(update, val)
                 myconn.commit()
