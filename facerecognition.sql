@@ -107,7 +107,7 @@ CREATE TABLE `Courses` (
 
 LOCK TABLES `Courses` WRITE;
 /*!40000 ALTER TABLE `Student` DISABLE KEYS */;
-INSERT INTO `Courses` VALUES (1, "COMP2120", "Computer Organization", 3, "Computer Organization is fun as long as you attend lecture. Welcome back.", "www.zoom.com/2120", "2120note.pdf");
+INSERT INTO `Courses` VALUES (1, "COMP2120", "Computer Organization", 3, "Computer Organization is fun as long as you attend lecture. Welcome back.", "https://hku.zoom.us/j/98307568693?pwd=QmlqZERWeDdWRVZ3SGdqWG51YUtndz09", "https://moodle.hku.hk/mod/resource/view.php?id=3168903");
 INSERT INTO `Courses` VALUES (2, "COMP3278", "Introduction to database management systems", 4, "Hi everyone! Welcome to COMP3278! Let expolore database together.", "www.zoom.com/3278", "3278note.pdf");
 /*!40000 ALTER TABLE `Student` ENABLE KEYS */;
 UNLOCK TABLES;

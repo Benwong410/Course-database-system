@@ -9,6 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import database_model as db
 
 
 class Ui_CourseWindow(object):
@@ -31,7 +32,7 @@ class Ui_CourseWindow(object):
         self.label_4 = QtWidgets.QLabel(self.widget)
         self.label_4.setGeometry(QtCore.QRect(0, 20, 461, 141))
         self.label_4.setText("")
-        self.label_4.setPixmap(QtGui.QPixmap("HKU_woodle.png"))
+        self.label_4.setPixmap(QtGui.QPixmap("assets/woodle_logo.png"))
         self.label_4.setScaledContents(True)
         self.label_4.setObjectName("label_4")
         self.lineEdit = QtWidgets.QLineEdit(self.widget)
@@ -137,21 +138,26 @@ class Ui_CourseWindow(object):
         QtCore.QMetaObject.connectSlotsByName(CourseWindow)
 
     def retranslateUi(self, CourseWindow):
+        time = "11:00" ## Todo: function needed to get the current time(import time??)
+        weekday = "2"  ## Todo: function needed to get weekday now
+        conn = db.connect_db()
+        user_id, _, _ = db.get_name_time(conn)
+        course_info = db.get_coure_in_an_hour(conn, user_id, time, weekday)
         _translate = QtCore.QCoreApplication.translate
         CourseWindow.setWindowTitle(_translate("CourseWindow", "MainWindow"))
         self.lineEdit.setText(_translate("CourseWindow", "My Courses"))
         self.pushButton.setText(_translate("CourseWindow", "Send information to mail"))
-        self.label.setText(_translate("CourseWindow", "Course information - COMP3278 Introduction to database management systems"))
+        self.label.setText(_translate("CourseWindow", "Course information - "+course_info[0][1]+": "+course_info[0][0]))
         self.label_2.setText(_translate("CourseWindow", " Course Teacher:"))
         self.label_3.setText(_translate("CourseWindow", " Course Address:"))
         self.label_5.setText(_translate("CourseWindow", " Zoom Link:"))
         self.label_6.setText(_translate("CourseWindow", " Teacher message:"))
         self.label_7.setText(_translate("CourseWindow", " Lecture Notes:"))
-        self.label_8.setText(_translate("CourseWindow", "Prof. Luo Ping"))
-        self.label_12.setText(_translate("CourseWindow", "https://moodle.hku.hk/mod/resource/view.php?id=3168903"))
-        self.label_11.setText(_translate("CourseWindow", "https://hku.zoom.us/j/98307568693?pwd=QmlqZERWeDdWRVZ3SGdqWG51YUtndz09"))
-        self.label_10.setText(_translate("CourseWindow", "Do not come late!!!"))
-        self.label_9.setText(_translate("CourseWindow", "MWT1"))
+        self.label_8.setText(_translate("CourseWindow", course_info[0][6]))
+        self.label_12.setText(_translate("CourseWindow", course_info[0][5]))
+        self.label_11.setText(_translate("CourseWindow", course_info[0][4]))
+        self.label_10.setText(_translate("CourseWindow", course_info[0][3]))
+        self.label_9.setText(_translate("CourseWindow", course_info[0][2]))
 
 
 if __name__ == "__main__":

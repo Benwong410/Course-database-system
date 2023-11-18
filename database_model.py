@@ -41,11 +41,12 @@ def get_is_course_start_in_an_hour(conn, user_id, time, weekday):
 def get_coure_in_an_hour(conn, user_id, time, weekday):
     mycursor = conn.cursor()
     sql = """
-    SELECT c.course_name, c.course_code, cs.course_venue, c.teacher_message, c.zoom_link, c.lecture_note
-    FROM Registercourses rc, Courses c, Coursetimeslots cs
+    SELECT c.course_name, c.course_code, cs.course_venue, c.teacher_message, c.zoom_link, c.lecture_note, u.user_name
+    FROM Registercourses rc, Courses c, Coursetimeslots cs, users u
     WHERE rc.user_id = %s
     AND rc.course_id = c.course_id
     AND rc.course_id = cs.course_id
+    AND c.teacher_user_id = u.user_id
     AND cs.start_time >= %s
     AND cs.start_time <= ADDTIME(%s, '01:00:00')
     AND cs.day_in_week = %s 
