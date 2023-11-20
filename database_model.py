@@ -114,6 +114,16 @@ def update_login_time(conn, user_id, login_time, login_date):
     conn.commit()
     mycursor.close()
 
+def get_course_data(conn, day):
+    mycursor = conn.cursor()
+    sql = """
+    SELECT C.course_code, C.course_name, CT.start_time, CT.end_time, CT.course_venue
+    FROM Courses C
+    JOIN Coursetimeslots CT ON C.course_id = CT.course_id
+    WHERE CT.day_in_week = %s;
+    """
+    mycursor.execute(sql, (day,))
+    return mycursor.fetchall()
 
 # Testing
 # conn= connect_db()
