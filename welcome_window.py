@@ -10,7 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from course_window import Ui_CourseWindow
-from timeteable_window import Ui_TimeWindow
+from timetable_window import Ui_TimeWindow
 import database_model as db
 
 
