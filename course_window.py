@@ -10,6 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import database_model as db
+from email_notification import send_email, Ui_EmailWindow
 
 
 class Ui_CourseWindow(object):
@@ -39,7 +40,7 @@ class Ui_CourseWindow(object):
         self.lineEdit.setGeometry(QtCore.QRect(0, 170, 541, 51))
         self.lineEdit.setStyleSheet("font: 18pt \".AppleSystemUIFont\";")
         self.lineEdit.setObjectName("lineEdit")
-        self.pushButton = QtWidgets.QPushButton(self.widget)
+        self.pushButton = QtWidgets.QPushButton(self.widget, clicked = lambda:self.openWindow())
         self.pushButton.setGeometry(QtCore.QRect(570, 170, 161, 41))
         self.pushButton.setStyleSheet("background-color: rgb(210, 210, 210);\n"
 "border-radius:20px;")
@@ -142,7 +143,7 @@ class Ui_CourseWindow(object):
         weekday = "2"  ## Todo: function needed to get weekday now
         conn = db.connect_db()
         user_id, _, _ = db.get_name_time(conn)
-        course_info = db.get_coure_in_an_hour(conn, user_id, time, weekday)
+        course_info = db.get_course_in_an_hour(conn, user_id, time, weekday)
         _translate = QtCore.QCoreApplication.translate
         CourseWindow.setWindowTitle(_translate("CourseWindow", "MainWindow"))
         self.lineEdit.setText(_translate("CourseWindow", "My Courses"))
@@ -158,6 +159,19 @@ class Ui_CourseWindow(object):
         self.label_11.setText(_translate("CourseWindow", course_info[0][4]))
         self.label_10.setText(_translate("CourseWindow", course_info[0][3]))
         self.label_9.setText(_translate("CourseWindow", course_info[0][2]))
+        
+    def openWindow(self):
+        time = "10:30" ## Todo: function needed to get the current time(import time??)
+        weekday = "2"  ## Todo: function needed to get weekday now
+        conn = db.connect_db()
+        user_id, _, _ = db.get_name_time(conn)
+        course_info = db.get_course_in_an_hour(conn, user_id, time, weekday)
+        user_email = db.get_user_email(conn, user_id)
+        message = send_email(user_email, course_info)
+        self.window = QtWidgets.QMainWindow()
+        self.ui = Ui_EmailWindow()
+        self.ui.setupUi(self.window, message)
+        self.window.show()
 
 
 if __name__ == "__main__":

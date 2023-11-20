@@ -1,50 +1,36 @@
-import smtplib, ssl
+import smtplib
 from datetime import datetime, timedelta
 from email.message import EmailMessage
+import database_model as db
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel
+from PyQt5.QtCore import Qt
 
-def getUserInfo(conn, user_id):
-	sql_select_Query = "SELECT user_name, email from users where user_id = " + str(user_id)
-	cursor = conn.cursor(dictionary = True)
-	cursor.execute(sql_select_Query)
-	info = cursor.fetchall()[0]
-	return info
+"""
+EMAIL_ACCOUNT = "hkuwoodle@163.com"
+EMAIL_PASSWORD = "JSECUMKJKFVTDMJZ"
+"""
+EMAIL_ACCOUNT = "hkuwoodle@outlook.com"
+EMAIL_PASSWORD = "woodlehku1120"
 
-def CourseInfoCheck (connect):
-    cursor = connect.cursor()
-    now = datetime.now()
-    now_time = datetime.strptime(datetime.strftime(now,'%H:%M'),'%H:%M')
-    
-    query = """
-		SELECT DISTINCT T.start_time, T.weekday, students.name, users.email
-		FROM coursetimeslots AS T, takes, (SELECT student.user_name, student.user_id
-		FROM (SELECT users.user_name, students.user_id
-		FROM users, students
-		WHERE users.user_id = students.user_id) AS student) AS S, students, users
-		WHERE T.course_id = takes.course_id AND takes.user_id = T.course_id AND S.user_id = users.user_id AND S.user_name = users.user_name;
-	"""
-    
-    cursor.execute(query)
-    student = cursor.fetchall()
-	##time = str(hour) + ":"+ str(minute).zfill(2)
-    for timing in student:
-        if (timing[1] == int(now.weekday() + 1)):
-            time = datetime.strptime(datetime.strftime(datetime.strptime(timing[0],'%H:%M'), '%H:%M'),'%H:%M')
-            time_difference = (time - now_time).seconds
-            if (time_difference<=3600):
-                send_email(timing[2], str(timing[1]), timing[3])
+class Ui_EmailWindow(object):
+    def setupUi(self, MainWindow, message):
+        MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(400, 200)
 
+        # Central Widget
+        self.centralwidget = QLabel(MainWindow)
+        self.centralwidget.setText(message)
+        self.centralwidget.setAlignment(Qt.AlignCenter)
 
-def send_email(receiver_email, conn, user_id, course_id, isTeacher, start_time):
+        MainWindow.setCentralWidget(self.centralwidget)
+
+def send_email(receiver_email, course_info):
     # email configuration
-    mail_host = "smtp.gmail.com"
+    mail_host = "smtp.office365.com"
     mail_user = EMAIL_ACCOUNT
     mail_pass = EMAIL_PASSWORD
- 
-
-    # Get user info
-    info = getUserInfo(conn, user_id)
-    FROM = mail_user
-    TO = receiver_email
+    smtp_port = 587  # Use 587 if using starttls()
+    
 
     # Create email message
     message = EmailMessage()
@@ -52,47 +38,34 @@ def send_email(receiver_email, conn, user_id, course_id, isTeacher, start_time):
     message['From'] = mail_user
     message['To'] = receiver_email
 
-    # Fetch course information
-    sql_select_Query = """
-        SELECT c.course_code, c.course_name, ct.course_venue, ct.duration, ct.zoom_link, ct.teacher_message, ct.notes_link
-        FROM coursetimeslots as ct
-        INNER JOIN courses as c ON c.course_id = ct.course_id
-        WHERE ct.weekday = %s AND ct.start_time = %s
-    """
-    cursor = conn.cursor(dictionary=True)
-    cursor.execute(sql_select_Query, (weekday, start_time))
-    course_info = cursor.fetchone()
+    # Prepare email body
+    message_body = f"(Auto generated email, please don't reply)\n\n"
+    message_body += f"Dear student,\n\nHere is the course information for your upcoming class:\n\n"
+    message_body += f"Course name: {course_info[0][0]}\n"
+    message_body += f"Course code: {course_info[0][1]}\n"
+    message_body += f"Classroom address: {course_info[0][2]}\n"
+    message_body += f"Teacher's message: {course_info[0][3]}\n"
+    message_body += f"Zoom link: {course_info[0][4]}\n"
+    message_body += f"Tutorial/Lecture Notes: {course_info[0][5]}\n\n"
+    
+    message.set_content(message_body)
 
-    if course_info:
-        end_time = str(int(start_time[:2]) + course_info['duration']) + start_time[2:]
-
-        # Fetch course materials
-        sql_select_Query = """
-            SELECT material_name, material_link
-            FROM coursematerials
-            WHERE course_id = %s
-        """
-        if not isTeacher:
-            sql_select_Query += " AND visible_to_students = TRUE"
-
-        cursor.execute(sql_select_Query, (course_id,))
-        materials = cursor.fetchall()
-
-        # Prepare email body
-        message_body = f"Dear student,\n\nHere is the course information for your upcoming class:\n\n"
-        message_body += f"Course code: {course_info['course_code']}\n"
-        message_body += f"Course name: {course_info['course_name']}\n"
-        message_body += f"Classroom address: {course_info['course_venue']}\n"
-        message_body += f"Teacher's message: {course_info['teacher_message']}\n"
-        message_body += f"Zoom link: {course_info['zoom_link']}\n"
-        message_body += f"Tutorial/Lecture Notes: {course_info['notes_link']}\n\n"
-
-        try:
-            server = smtplib.SMTP(mail_host, smtp_port)
+    try:
+        
+        with smtplib.SMTP(mail_host, smtp_port) as server:
             server.starttls()
             server.login(mail_user, mail_pass)
             server.send_message(message)
-            server.quit()
-            print("Email sent successfully!")
-        except Exception as e:
-            print(f"Failed to send email: {str(e)}")
+        return "Email sent successfully."
+    except smtplib.SMTPAuthenticationError:
+        print("SMTP Authentication Error: Check your username and password.")
+        return "SMTP Authentication Error: Check your username and password."
+    except smtplib.SMTPException as e:
+        print(f"Failed to send email: {str(e)}")
+        return f"Failed to send email: {str(e)}"
+
+if __name__ == "__main__":
+    conn = db.connect_db()
+    course_info = db.get_course_in_an_hour(conn, 1, "10:30", "2")
+    print(course_info)
+    send_email("yitjunyam@gmail.com", course_info)

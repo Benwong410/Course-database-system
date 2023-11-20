@@ -16,11 +16,11 @@ import database_model as db
 
 class Ui_MainWindow(object):
     def openWindow(self):
-        time = "11:00" ## Todo: function needed to get the current time(import time??)
+        time = "10:30" ## Todo: function needed to get the current time(import time??)
         weekday = "2"  ## Todo: function needed to get weekday now
         conn = db.connect_db()
         user_id, _, _ = db.get_name_time(conn)
-        openCourse = bool(db.get_is_course_start_in_an_hour(conn, user_id, time, weekday))
+        openCourse = db.get_is_course_start_in_an_hour(conn, user_id, time, weekday)
         if (openCourse):
             self.window = QtWidgets.QMainWindow()
             self.ui = Ui_CourseWindow()
@@ -99,9 +99,9 @@ class Ui_MainWindow(object):
         self.label_5.setText(_translate("MainWindow", name))
         self.label_6.setText(_translate("MainWindow", str(time)))
 
-        time = "11:00" ## Todo: function needed to get the current time(import time??)
+        time = "10:30" ## Todo: function needed to get the current time(import time??)
         weekday = "2"  ## Todo: function needed to get weekday now
-        openCourse = bool(db.get_is_course_start_in_an_hour(conn, user_id, time, weekday))
+        openCourse = db.get_is_course_start_in_an_hour(conn, user_id, time, weekday)
 
         if (openCourse):
             self.pushButton.setText(_translate("MainWindow", "My Courses"))

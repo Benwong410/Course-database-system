@@ -15,6 +15,15 @@ def connect_db():
     conn = mysql.connector.connect(user=CONFIG_USER, password=CONFIG_PASSWORD,host=CONFIG_HOST,database=CONFIG_DATABASE)
     return conn
 
+def get_user_email(conn, user_id):
+    mycursor = conn.cursor()
+    sql = """
+    SELECT user_email FROM Users WHERE user_id = %s
+    """
+    mycursor.execute(sql, (user_id,))
+    result = mycursor.fetchall()
+    return result[0][0]
+
     ## Usage: for the redirection of the mainpage button 
     ## Variable: user_id
     ## Return: is there any course that will be started in an hours
@@ -38,7 +47,7 @@ def get_is_course_start_in_an_hour(conn, user_id, time, weekday):
     ## Usage: get course data in course table
     ## Return: course_name, course_code, course_venue, teacher_message, zoom_link, lecture_note
     ## Return Type: Array
-def get_coure_in_an_hour(conn, user_id, time, weekday):
+def get_course_in_an_hour(conn, user_id, time, weekday):
     mycursor = conn.cursor()
     sql = """
     SELECT c.course_name, c.course_code, cs.course_venue, c.teacher_message, c.zoom_link, c.lecture_note, u.user_name
@@ -61,7 +70,7 @@ def get_coure_in_an_hour(conn, user_id, time, weekday):
 def get_name_time(conn):
     mycursor = conn.cursor()
     sql = """
-    SELECT * FROM Users ORDER BY user_login_date desc, user_login_time DESC
+    SELECT * FROM Users ORDER BY user_login_date DESC, user_login_time DESC
     """
     mycursor.execute(sql)
     result = mycursor.fetchall()
