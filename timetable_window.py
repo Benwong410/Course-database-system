@@ -69,24 +69,25 @@ class Ui_CourseWindow(object):
 
     def get_date(self):
         dateSelected = str(self.calendarWidget.selectedDate().toString())[:3]
-        
-        if dateSelected == "Mon":
-            day = 1
-        elif dateSelected == "Tue":
-            day = 2
-        elif dateSelected == "Wed":
-            day = 3
-        elif dateSelected == "Thu":
-            day = 4
-        elif dateSelected == "Fri":
-            day = 5
-        elif dateSelected == "Sat":
-            day = 6
-        elif dateSelected == "Sun":
-            day = 7
+        day = "0"
+        if dateSelected  == "Mon" or "周一":
+            day = "1"
+        elif dateSelected == "Tue" or "周二":
+            day = "2"
+        elif dateSelected == "Wed" or "周三":
+            day = "3"
+        elif dateSelected == "Thu" or "周四":
+            day = "4"
+        elif dateSelected == "Fri" or "周五":
+            day = "5"
+        elif dateSelected == "Sat" or "周六":
+            day = "6"
+        elif dateSelected == "Sun" or "周日":
+            day = "7"
 
+        print(day)
         conn = db.connect_db()
-        course_info = db.get_course_data(conn, day)
+        course_info = db.get_course_day(conn, day)
         _translate = QtCore.QCoreApplication.translate
         CourseWindow.setWindowTitle(_translate("CourseWindow", "MainWindow"))
         self.lineEdit.setText(_translate("CourseWindow", "My Timetable"))
@@ -94,7 +95,7 @@ class Ui_CourseWindow(object):
             self.label.setText(_translate("CourseWindow", f"{course_info[0][0]} - {course_info[0][1]}"))
             self.label_2.setText(_translate("CourseWindow", f"Time: {course_info[0][2]} - {course_info[0][3]}"))
             self.label_3.setText(_translate("CourseWindow", f"Course Venue: {course_info[0][4]}"))
-
+            print(course_info)
     # def retranslateUi(self):
     #     # print(date)
     #     _translate = QtCore.QCoreApplication.translate
