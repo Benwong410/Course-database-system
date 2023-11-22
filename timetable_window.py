@@ -98,6 +98,10 @@ class Ui_CourseWindow(object):
             self.label_2.setText(_translate("CourseWindow", f"Time: {course_info[0][2]} - {course_info[0][3]}"))
             self.label_3.setText(_translate("CourseWindow", f"Course Venue: {course_info[0][4]}"))
             print(course_info)
+        else :
+            self.label.setText(_translate("CourseWindow", "No Class Today"))
+            self.label_2.setText(_translate("CourseWindow", ""))
+            self.label_3.setText(_translate("CourseWindow", ""))
     # def retranslateUi(self):
     #     # print(date)
     #     _translate = QtCore.QCoreApplication.translate
