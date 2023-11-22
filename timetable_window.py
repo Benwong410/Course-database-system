@@ -69,8 +69,6 @@ class Ui_CourseWindow(object):
 
     def get_date(self):
         dateSelected = self.calendarWidget.selectedDate().toString()[:3]
-        print(dateSelected)
-        print(len(dateSelected))
         day = "0"
         if dateSelected  == "Mon":
             day = "1"
@@ -86,7 +84,7 @@ class Ui_CourseWindow(object):
             day = "6"
         elif dateSelected == "Sun":
             day = "7"
-        print(day)
+        
         conn = db.connect_db()
         course_info = db.get_course_data(conn, day)
         _translate = QtCore.QCoreApplication.translate
@@ -102,15 +100,7 @@ class Ui_CourseWindow(object):
             self.label.setText(_translate("CourseWindow", "No Class Today"))
             self.label_2.setText(_translate("CourseWindow", ""))
             self.label_3.setText(_translate("CourseWindow", ""))
-    # def retranslateUi(self):
-    #     # print(date)
-    #     _translate = QtCore.QCoreApplication.translate
-    #     CourseWindow.setWindowTitle(_translate("CourseWindow", "MainWindow"))
-    #     self.lineEdit.setText(_translate("CourseWindow", "My Timetable"))
-    #     self.label.setText(_translate("CourseWindow", "Comp3287 - Introduction to Database Management"))
-    #     self.label_2.setText(_translate("CourseWindow", "Time: 11:00 - 12:00"))
-    #     self.label_3.setText(_translate("CourseWindow", "Course Venue: CYM112"))
-
+            
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)

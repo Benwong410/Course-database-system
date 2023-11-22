@@ -11,7 +11,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import database_model as db
 from email_notification import send_email, Ui_EmailWindow
-
+import datetime
 
 class Ui_ClassWindow(object):
     def setupUi(self, ClassWindow):
@@ -164,11 +164,29 @@ class Ui_ClassWindow(object):
         self.label_9.setText(_translate("ClassWindow", course_info[0][2]))
         
     def openWindow(self):
-        time = "10:30" ## Todo: function needed to get the current time(import time??)
-        weekday = "2"  ## Todo: function needed to get weekday now
+        current_date_time = datetime.datetime.now()
+        current_time = current_date_time.strftime("%H:%M")
+        current_day = current_date_time.strftime("%A")[:3]
+        if current_day  == "Mon":
+            current_day = "1"
+        elif current_day == "Tue":
+            current_day = "2"
+        elif current_day == "Wed":
+            current_day = "3"
+        elif current_day == "Thu":
+            current_day = "4"
+        elif current_day == "Fri":
+            current_day = "5"
+        elif current_day == "Sat":
+            current_day = "6"
+        elif current_day == "Sun":
+            current_day = "7"
+        else:
+            current_day = "0"
+            
         conn = db.connect_db()
         user_id, _, _ = db.get_name_time(conn)
-        course_info = db.get_course_in_an_hour(conn, user_id, time, weekday)
+        course_info = db.get_course_in_an_hour(conn, user_id, current_time, current_day)
         user_email = db.get_user_email(conn, user_id)
         message = send_email(user_email, course_info)
         self.window = QtWidgets.QMainWindow()

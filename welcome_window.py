@@ -12,15 +12,34 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from course_window import Ui_ClassWindow
 from timetable_window import Ui_CourseWindow
 import database_model as db
+import datetime
 
 
 class Ui_MainWindow(object):
     def openWindow(self):
-        time = "10:30" ## Todo: function needed to get the current time(import time??)
-        weekday = "2"  ## Todo: function needed to get weekday now
+        current_date_time = datetime.datetime.now()
+        current_time = current_date_time.strftime("%H:%M")
+        current_day = current_date_time.strftime("%A")[:3]
+        if current_day  == "Mon":
+            current_day = "1"
+        elif current_day == "Tue":
+            current_day = "2"
+        elif current_day == "Wed":
+            current_day = "3"
+        elif current_day == "Thu":
+            current_day = "4"
+        elif current_day == "Fri":
+            current_day = "5"
+        elif current_day == "Sat":
+            current_day = "6"
+        elif current_day == "Sun":
+            current_day = "7"
+        else:
+            current_day = "0"
+
         conn = db.connect_db()
         user_id, _, _ = db.get_name_time(conn)
-        openCourse = db.get_is_course_start_in_an_hour(conn, user_id, time, weekday)
+        openCourse = db.get_is_course_start_in_an_hour(conn, user_id, current_time, current_day)
         if (openCourse):
             self.window = QtWidgets.QMainWindow()
             self.ui = Ui_ClassWindow()
@@ -99,9 +118,26 @@ class Ui_MainWindow(object):
         self.label_5.setText(_translate("MainWindow", name))
         self.label_6.setText(_translate("MainWindow", str(time)))
 
-        time = "10:30" ## Todo: function needed to get the current time(import time??)
-        weekday = "2"  ## Todo: function needed to get weekday now
-        openCourse = db.get_is_course_start_in_an_hour(conn, user_id, time, weekday)
+        current_date_time = datetime.datetime.now()
+        current_time = current_date_time.strftime("%H:%M")
+        current_day = current_date_time.strftime("%A")[:3]
+        if current_day  == "Mon":
+            current_day = "1"
+        elif current_day == "Tue":
+            current_day = "2"
+        elif current_day == "Wed":
+            current_day = "3"
+        elif current_day == "Thu":
+            current_day = "4"
+        elif current_day == "Fri":
+            current_day = "5"
+        elif current_day == "Sat":
+            current_day = "6"
+        elif current_day == "Sun":
+            current_day = "7"
+        else:
+            current_day = "0"
+        openCourse = db.get_is_course_start_in_an_hour(conn, user_id, current_time, current_day)
 
         if (openCourse):
             self.pushButton.setText(_translate("MainWindow", "My Courses"))
