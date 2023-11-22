@@ -159,7 +159,7 @@ class Ui_ClassWindow(object):
         self.label_7.setText(_translate("ClassWindow", " Lecture Notes:"))
         self.label_8.setText(_translate("ClassWindow", course_info[0][6]))
         self.label_12.setText(_translate("ClassWindow", course_info[0][5])) ## To do: material link
-        self.label_11.setText(_translate("ClassWindow", "<a herf ="+course_info[0][4]+">Zoom Link</a>")) ## To do: zoom link
+        self.label_11.setText(_translate("ClassWindow", course_info[0][4])) ## To do: zoom link
         self.label_10.setText(_translate("ClassWindow", course_info[0][3]))
         self.label_9.setText(_translate("ClassWindow", course_info[0][2]))
         
