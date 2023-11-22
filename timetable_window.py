@@ -68,31 +68,33 @@ class Ui_CourseWindow(object):
         QtCore.QMetaObject.connectSlotsByName(CourseWindow)
 
     def get_date(self):
-        dateSelected = str(self.calendarWidget.selectedDate().toString())[:3]
+        dateSelected = self.calendarWidget.selectedDate().toString()[:3]
+        print(dateSelected)
+        print(len(dateSelected))
         day = "0"
-        if dateSelected  == "Mon" or "周一":
+        if dateSelected  == "Mon":
             day = "1"
-        elif dateSelected == "Tue" or "周二":
+        elif dateSelected == "Tue":
             day = "2"
-        elif dateSelected == "Wed" or "周三":
+        elif dateSelected == "Wed":
             day = "3"
-        elif dateSelected == "Thu" or "周四":
+        elif dateSelected == "Thu":
             day = "4"
-        elif dateSelected == "Fri" or "周五":
+        elif dateSelected == "Fri":
             day = "5"
-        elif dateSelected == "Sat" or "周六":
+        elif dateSelected == "Sat":
             day = "6"
-        elif dateSelected == "Sun" or "周日":
+        elif dateSelected == "Sun":
             day = "7"
-
         print(day)
         conn = db.connect_db()
         course_info = db.get_course_data(conn, day)
         _translate = QtCore.QCoreApplication.translate
+        CourseWindow = QtWidgets.QMainWindow()
         CourseWindow.setWindowTitle(_translate("CourseWindow", "MainWindow"))
         self.lineEdit.setText(_translate("CourseWindow", "My Timetable"))
         if (len(course_info) > 0):
-            self.label.setText(_translate("CourseWindow", f"{course_info[0][0]} - {course_info[0][1]}"))
+            self.label.setText(_translate("CourseWindow", f"{course_info[0][0]}-{course_info[0][1]}"))
             self.label_2.setText(_translate("CourseWindow", f"Time: {course_info[0][2]} - {course_info[0][3]}"))
             self.label_3.setText(_translate("CourseWindow", f"Course Venue: {course_info[0][4]}"))
             print(course_info)

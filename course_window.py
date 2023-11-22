@@ -13,11 +13,11 @@ import database_model as db
 from email_notification import send_email, Ui_EmailWindow
 
 
-class Ui_CourseWindow(object):
-    def setupUi(self, CourseWindow):
-        CourseWindow.setObjectName("CourseWindow")
-        CourseWindow.resize(772, 926)
-        self.centralwidget = QtWidgets.QWidget(CourseWindow)
+class Ui_ClassWindow(object):
+    def setupUi(self, ClassWindow):
+        ClassWindow.setObjectName("CourseWindow")
+        ClassWindow.resize(772, 926)
+        self.centralwidget = QtWidgets.QWidget(ClassWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.scrollArea = QtWidgets.QScrollArea(self.centralwidget)
         self.scrollArea.setGeometry(QtCore.QRect(0, 0, 1141, 881))
@@ -126,39 +126,39 @@ class Ui_CourseWindow(object):
         self.label_7.raise_()
         self.line.raise_()
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
-        CourseWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(CourseWindow)
+        ClassWindow.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(ClassWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 772, 24))
         self.menubar.setObjectName("menubar")
-        CourseWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(CourseWindow)
+        ClassWindow.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(ClassWindow)
         self.statusbar.setObjectName("statusbar")
-        CourseWindow.setStatusBar(self.statusbar)
+        ClassWindow.setStatusBar(self.statusbar)
 
-        self.retranslateUi(CourseWindow)
-        QtCore.QMetaObject.connectSlotsByName(CourseWindow)
+        self.retranslateUi(ClassWindow)
+        QtCore.QMetaObject.connectSlotsByName(ClassWindow)
 
-    def retranslateUi(self, CourseWindow):
+    def retranslateUi(self, ClassWindow):
         time = "11:00" ## Todo: function needed to get the current time(import time??)
         weekday = "2"  ## Todo: function needed to get weekday now
         conn = db.connect_db()
         user_id, _, _ = db.get_name_time(conn)
         course_info = db.get_course_in_an_hour(conn, user_id, time, weekday)
         _translate = QtCore.QCoreApplication.translate
-        CourseWindow.setWindowTitle(_translate("CourseWindow", "MainWindow"))
-        self.lineEdit.setText(_translate("CourseWindow", "My Courses"))
-        self.pushButton.setText(_translate("CourseWindow", "Send information to mail"))
-        self.label.setText(_translate("CourseWindow", "Course information - "+course_info[0][1]+": "+course_info[0][0]))
-        self.label_2.setText(_translate("CourseWindow", " Course Teacher:"))
-        self.label_3.setText(_translate("CourseWindow", " Course Address:"))
-        self.label_5.setText(_translate("CourseWindow", " Zoom Link:"))
-        self.label_6.setText(_translate("CourseWindow", " Teacher message:"))
-        self.label_7.setText(_translate("CourseWindow", " Lecture Notes:"))
-        self.label_8.setText(_translate("CourseWindow", course_info[0][6]))
-        self.label_12.setText(_translate("CourseWindow", course_info[0][5]))
-        self.label_11.setText(_translate("CourseWindow", course_info[0][4]))
-        self.label_10.setText(_translate("CourseWindow", course_info[0][3]))
-        self.label_9.setText(_translate("CourseWindow", course_info[0][2]))
+        ClassWindow.setWindowTitle(_translate("ClassWindow", "MainWindow"))
+        self.lineEdit.setText(_translate("ClassWindow", "My Courses"))
+        self.pushButton.setText(_translate("ClassWindow", "Send information to mail"))
+        self.label.setText(_translate("ClassWindow", "Course information - "+course_info[0][1]+": "+course_info[0][0]))
+        self.label_2.setText(_translate("ClassWindow", " Course Teacher:"))
+        self.label_3.setText(_translate("ClassWindow", " Course Address:"))
+        self.label_5.setText(_translate("ClassWindow", " Zoom Link:"))
+        self.label_6.setText(_translate("ClassWindow", " Teacher message:"))
+        self.label_7.setText(_translate("ClassWindow", " Lecture Notes:"))
+        self.label_8.setText(_translate("ClassWindow", course_info[0][6]))
+        self.label_12.setText(_translate("ClassWindow", course_info[0][5]))
+        self.label_11.setText(_translate("ClassWindow", course_info[0][4]))
+        self.label_10.setText(_translate("ClassWindow", course_info[0][3]))
+        self.label_9.setText(_translate("ClassWindow", course_info[0][2]))
         
     def openWindow(self):
         time = "10:30" ## Todo: function needed to get the current time(import time??)
@@ -177,8 +177,8 @@ class Ui_CourseWindow(object):
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    CourseWindow = QtWidgets.QMainWindow()
-    ui = Ui_CourseWindow()
-    ui.setupUi(CourseWindow)
-    CourseWindow.show()
+    ClassWindow = QtWidgets.QMainWindow()
+    ui = Ui_ClassWindow()
+    ui.setupUi(ClassWindow)
+    ClassWindow.show()
     sys.exit(app.exec_())

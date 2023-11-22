@@ -9,26 +9,26 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from course_window import Ui_CourseWindow
-from timetable_window import Ui_TimeWindow
+from course_window import Ui_ClassWindow
+from timetable_window import Ui_CourseWindow
 import database_model as db
 
 
 class Ui_MainWindow(object):
     def openWindow(self):
         time = "10:30" ## Todo: function needed to get the current time(import time??)
-        weekday = "2"  ## Todo: function needed to get weekday now
+        weekday = "1"  ## Todo: function needed to get weekday now
         conn = db.connect_db()
         user_id, _, _ = db.get_name_time(conn)
         openCourse = db.get_is_course_start_in_an_hour(conn, user_id, time, weekday)
         if (openCourse):
             self.window = QtWidgets.QMainWindow()
-            self.ui = Ui_CourseWindow()
+            self.ui = Ui_ClassWindow()
             self.ui.setupUi(self.window)
             self.window.show()
         else:
             self.window = QtWidgets.QMainWindow()
-            self.ui = Ui_TimeWindow()
+            self.ui = Ui_CourseWindow()
             self.ui.setupUi(self.window)
             self.window.show()
 
