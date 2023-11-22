@@ -87,7 +87,7 @@ class Ui_CourseWindow(object):
 
         print(day)
         conn = db.connect_db()
-        course_info = db.get_course_day(conn, day)
+        course_info = db.get_course_data(conn, day)
         _translate = QtCore.QCoreApplication.translate
         CourseWindow.setWindowTitle(_translate("CourseWindow", "MainWindow"))
         self.lineEdit.setText(_translate("CourseWindow", "My Timetable"))
