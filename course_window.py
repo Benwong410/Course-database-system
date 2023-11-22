@@ -88,11 +88,14 @@ class Ui_ClassWindow(object):
         self.label_8.setStyleSheet("font: 14pt \".AppleSystemUIFont\";\n"
 "")
         self.label_8.setObjectName("label_8")
+        ## hyperlink
+        
         self.label_12 = QtWidgets.QLabel(self.scrollAreaWidgetContents_2)
         self.label_12.setGeometry(QtCore.QRect(160, 200, 611, 41))
         self.label_12.setStyleSheet("font: 14pt \".AppleSystemUIFont\";\n"
 "")
         self.label_12.setObjectName("label_12")
+        ## hyperlink
         self.label_11 = QtWidgets.QLabel(self.scrollAreaWidgetContents_2)
         self.label_11.setGeometry(QtCore.QRect(160, 160, 611, 41))
         self.label_11.setStyleSheet("font: 14pt \".AppleSystemUIFont\";\n"
@@ -155,8 +158,8 @@ class Ui_ClassWindow(object):
         self.label_6.setText(_translate("ClassWindow", " Teacher message:"))
         self.label_7.setText(_translate("ClassWindow", " Lecture Notes:"))
         self.label_8.setText(_translate("ClassWindow", course_info[0][6]))
-        self.label_12.setText(_translate("ClassWindow", course_info[0][5]))
-        self.label_11.setText(_translate("ClassWindow", course_info[0][4]))
+        self.label_12.setText(_translate("ClassWindow", course_info[0][5])) ## To do: material link
+        self.label_11.setText(_translate("ClassWindow", "<a herf ="+course_info[0][4]+">Zoom Link</a>")) ## To do: zoom link
         self.label_10.setText(_translate("ClassWindow", course_info[0][3]))
         self.label_9.setText(_translate("ClassWindow", course_info[0][2]))
         
