@@ -138,7 +138,7 @@ INSERT INTO `Coursetimeslots` VALUES (2, "14:00", "15:00", "5", "CYM212");
 UNLOCK TABLES;
 
 ------------------------------------------------------------------------------------------------------
--- Table structure for table `Coursetimeslots` 
+-- Table structure for table `Registercourses` 
 --
 DROP TABLE IF EXISTS `Registercourses`;
 
@@ -157,14 +157,30 @@ INSERT INTO `Registercourses` VALUES (1,2);
 /*!40000 ALTER TABLE `Student` ENABLE KEYS */;
 UNLOCK TABLES;
 
-# Create TABLE 'CourseMaterials'
--- Ben: to do: create table sql
--- Ben: to do: insert data sql
+------------------------------------------------------------------------------------------------------
+-- Table structure for table `Teachesecourse` 
+--
+DROP TABLE IF EXISTS `Teachesecourse`;
+
+# Create TABLE 'Teachesecourse'
+CREATE TABLE `Teachesecourse` (
+  `user_id` int,
+  `course_id` int,
+  FOREIGN KEY (`course_id`) REFERENCES Courses(`course_id`),
+  FOREIGN KEY (`user_id`) REFERENCES Teachers(`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `Teachesecourse` WRITE;
+/*!40000 ALTER TABLE `Student` DISABLE KEYS */;
+INSERT INTO `Teachesecourse` VALUES (3,1);
+INSERT INTO `Teachesecourse` VALUES (4,2);
+/*!40000 ALTER TABLE `Student` ENABLE KEYS */;
+UNLOCK TABLES;
+
 
 
 -- # Ben: Create TABLE 'Teahes' optional
 
--- # Ben: Create TABLE 'Discussion' optional
 
 
 
